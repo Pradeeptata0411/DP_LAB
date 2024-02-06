@@ -1,0 +1,68 @@
+from preprocessing import PreProcess_Data
+import Model as cm
+import matplotlib.pyplot as plt
+
+if __name__ == "__main__":
+    images_folder_path = 'E:\\KLU\\3rd year\\3_2\\deep learning\\Deep Learning Programs\\imagefile'
+    imdata = PreProcess_Data()
+    imdata.visualization_images(images_folder_path, 2)
+    imagefile, label, df = imdata.preprocess(images_folder_path)
+    csv_file_path = 'output.csv'
+    df.to_csv(csv_file_path, index=False)
+    print(f"CSV file saved at: {csv_file_path}")
+    # train, test = imdata.generate_train_test_images(imagefile, label)
+    # csv_file_path2 = 'output_test.csv'
+    # test.to_csv(csv_file_path2, index=False)
+    # print(f"CSV file saved at: {csv_file_path2}")
+    tr_gen, tt_gen,va_gen = imdata.generate_train_test_images(imagefile, label)
+    print("train Generator :-", tr_gen)
+    print("test Generator :-", tt_gen)
+    print("validation Generator :-", va_gen)
+
+    # print()
+    # print()
+    # print()
+    # print()
+    # print()
+    # print()
+    #
+    # CnnModel = cm.DeepANN()
+    # model1 = CnnModel.CNN_MODEL()
+    # print("train generator ", tr_gen)
+    # ANN_history = model1.fit(tr_gen, epochs=5, validation_data=va_gen)
+    # plt.plot(ANN_history.history['accuracy'], label='Training Accuracy')
+    # plt.plot(ANN_history.history['val_accuracy'], label='Validation Accuracy')
+    # plt.xlabel('Epochs')
+    # plt.ylabel('Accuracy')
+    # plt.title('Training and Validation Accuracy Over Epochs')
+    # plt.legend()
+    # plt.show()
+    # Ann_test_loss, Ann_test_acc = model1.evaluate(tr_gen)
+    # # Ann_test_loss, Ann_test_acc = model1.evaluate(tt_gen)
+    # print(f'Test accuracy: {Ann_test_acc}')
+    # print("The architecture is ")
+    # print(model1.summary())
+
+    print()
+    print()
+    print()
+    print()
+    print()
+    print()
+
+    CnnModel = cm.DeepANN()
+    model1 = CnnModel.vgg_cnn()
+    print("train generator ", tr_gen)
+    ANN_history = model1.fit(tr_gen, epochs=5, validation_data=va_gen)
+    plt.plot(ANN_history.history['accuracy'], label='Training Accuracy')
+    plt.plot(ANN_history.history['val_accuracy'], label='Validation Accuracy')
+    plt.xlabel('Epochs')
+    plt.ylabel('Accuracy')
+    plt.title('Training and Validation Accuracy Over Epochs')
+    plt.legend()
+    plt.show()
+    Ann_test_loss, Ann_test_acc = model1.evaluate(tr_gen)
+    #Ann_test_loss, Ann_test_acc = model1.evaluate(tt_gen)
+    print(f'Test accuracy: {Ann_test_acc}')
+    print("The ANN architecture is ")
+    print(model1.summary())
