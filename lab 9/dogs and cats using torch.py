@@ -14,7 +14,6 @@ import matplotlib.pyplot as plt
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-
 def load_images(path):
     images = []
     filenames = os.listdir(path)
